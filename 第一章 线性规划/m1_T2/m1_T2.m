@@ -1,0 +1,10 @@
+clc,clear
+c=[1:4];
+Aeq=[1,-1,-1,1;1,-1,1,-3;1,-1,-2,3];beq=[0,1,-1/2];
+prob=optimproblem;
+u=optimvar('u',4,'LowerBound',0);
+v=optimvar('v',4,'LowerBound',0);
+prob.Objective=c*(u+v);
+prob.Constraints.con=Aeq*(u-v)==beq';
+[sol,fval,flag,out]=solve(prob);
+fval,x=sol.u-sol.v

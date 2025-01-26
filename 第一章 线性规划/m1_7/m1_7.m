@@ -1,0 +1,10 @@
+clc,clear
+c=[1:4];b=[-2;-1;-1/2];
+a=[1,-1,-1,1;1,-1,1,-3;1,-1,-2,3];
+prob=optimproblem;
+u=optimvar('u',4,'LowerBound',0);
+v=optimvar('v',4,'LowerBound',0);
+prob.Objective=c*(u+v);%矩阵乘法
+prob.Constraints.con=a*(u-v)<=b;
+[sol,fval,flag,out]=solve(prob);
+fval,x=sol.u+sol.v
